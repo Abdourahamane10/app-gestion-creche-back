@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Traits;
+
+use Illuminate\Http\Response;
+
+trait ApiResponseTrait
+{
+    protected function successResponse($data = null, $message = null, $code = Response::HTTP_OK)
+    {
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'data' => $data
+        ], $code);
+    }
+
+    protected function errorResponse($message = null, $code = Response::HTTP_BAD_REQUEST)
+    {
+        return response()->json([
+            'success' => false,
+            'message' => $message
+        ], $code);
+    }
+
+    protected function unauthorizedResponse($message = null)
+    {
+        return $this->errorResponse($message, Response::HTTP_UNAUTHORIZED);
+    }
+}
