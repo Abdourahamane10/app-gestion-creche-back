@@ -17,4 +17,9 @@ class Service extends Model
         'idInstance',
         'codeService'
     ];
+
+    public function instance()
+    {
+        return $this->belongsTo(Instance::class, 'idInstance', 'idInstance');
+    }
 }
