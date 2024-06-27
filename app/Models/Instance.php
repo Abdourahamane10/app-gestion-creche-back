@@ -16,4 +16,9 @@ class Instance extends Model
         'nomInstance',
         'pwdInstance'
     ];
+
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'idInstance', 'idInstance');
+    }
 }
