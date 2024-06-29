@@ -14,7 +14,6 @@ class Instance extends Model
     protected $fillable = [
         'codeInstance',
         'nomInstance',
-        'pwdInstance'
     ];
 
     public function services()

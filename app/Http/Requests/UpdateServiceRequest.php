@@ -23,7 +23,6 @@ class UpdateServiceRequest extends FormRequest
     {
         return [
             'nomService' => ['string', 'required', 'max:100'],
-            'pwdService' => ['string', 'required', 'max:45'],
             'idInstance' => ['integer', 'required', 'min:1'],
             'codeService' => ['integer', 'required', 'min:1']
         ];

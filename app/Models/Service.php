@@ -13,7 +13,6 @@ class Service extends Model
 
     protected $fillable = [
         'nomService',
-        'pwdService',
         'idInstance',
         'codeService'
     ];

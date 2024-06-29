@@ -23,8 +23,7 @@ class UpdateInstanceRequest extends FormRequest
     {
         return [
             'codeInstance' => ['integer', 'required', 'min:100'],
-            'nomInstance' => ['string', 'required', 'max:100'],
-            'pwdInstance' => ['string', 'required', 'max:45']
+            'nomInstance' => ['string', 'required', 'max:100']
         ];
     }
 }
