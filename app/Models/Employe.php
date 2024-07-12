@@ -24,7 +24,7 @@ class Employe extends Model
         'dateEmbaucheEmploye',
         'photoEmploye',
         'idFonction',
-        'idSection',
+        'idSection'
     ];
 
     /**
@@ -43,6 +43,7 @@ class Employe extends Model
      */
     protected $casts = [
         'dateEmbaucheEmploye' => 'datetime',
+        'dateNaissanceEmploye' => 'date',
         'codeEmploye' => 'hashed',
     ];
 }
