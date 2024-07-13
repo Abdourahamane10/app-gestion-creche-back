@@ -46,4 +46,14 @@ class Employe extends Model
         'dateNaissanceEmploye' => 'date',
         'codeEmploye' => 'hashed',
     ];
+
+    public function fonction()
+    {
+        return $this->belongsTo(Fonction::class, 'idFonction', 'idFonction');
+    }
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class, 'idSection', 'idSection');
+    }
 }
