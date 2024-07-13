@@ -25,7 +25,7 @@ class UpdateEmployeRequest extends FormRequest
             'nomEmploye' => ['string', 'required', 'max:50'],
             'prenomEmploye' => ['string', 'required', 'max:50'],
             'telephoneEmploye' => ['string', 'max:20'],
-            'emailEmploye' => ['email', 'max:30'],
+            'emailEmploye' => ['email', 'required', 'max:30'],
             'adresseEmploye' => ['string', 'max:45'],
             'codeEmploye' => ['string', 'required', 'max:30'],
             'nationalityEmploye' => ['string', 'max:50'],
