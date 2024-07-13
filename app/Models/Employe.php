@@ -33,7 +33,7 @@ class Employe extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'emailEmploye'
+        'codeEmploye'
     ];
 
     /**
