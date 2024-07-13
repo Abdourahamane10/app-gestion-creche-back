@@ -25,7 +25,7 @@ class UpdateParentsRequest extends FormRequest
             'nomParent' => ['string', 'required', 'max:50'],
             'prenomParent' => ['string', 'required', 'max:50'],
             'telephoneParent' => ['string', 'max:20'],
-            'emailParent' => ['email', 'max:30'],
+            'emailParent' => ['email', 'required', 'max:30'],
             'adresseParent' => ['string', 'max:45'],
             'codeParent' => ['string', 'required', 'max:45'],
             'nationalityParent' => ['string', 'max:50'],
