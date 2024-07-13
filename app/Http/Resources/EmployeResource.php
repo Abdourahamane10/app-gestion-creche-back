@@ -28,7 +28,7 @@ class EmployeResource extends JsonResource
             'dateEmbauche' => $this->dateEmbaucheEmploye,
             'photo' => $this->photoEmploye,
             'fonction' => new FonctionResource($this->fonction),
-            'id_section' => new SectionResource($this->section)
+            'section' => new SectionResource($this->section)
         ];
     }
 }
