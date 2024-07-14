@@ -27,7 +27,7 @@ class UpdateEmployeRequest extends FormRequest
             'telephoneEmploye' => ['string', 'max:20'],
             'emailEmploye' => ['email', 'required', 'max:30'],
             'adresseEmploye' => ['string', 'max:45'],
-            'codeEmploye' => ['string', 'required', 'max:30'],
+            'passwordEmploye' => ['string', 'required', 'max:30'],
             'nationalityEmploye' => ['string', 'max:50'],
             'dateNaissanceEmploye' => ['date'],
             'sexeEmploye' => ['string', 'required', 'max:1'],

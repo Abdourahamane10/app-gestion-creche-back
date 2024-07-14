@@ -21,7 +21,7 @@ class Employe extends Authenticatable implements JWTSubject
         'telephoneEmploye',
         'emailEmploye',
         'adresseEmploye',
-        'codeEmploye',
+        'passwordEmploye',
         'nationalityEmploye',
         'dateNaissanceEmploye',
         'sexeEmploye',
@@ -37,7 +37,7 @@ class Employe extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
-        'codeEmploye'
+        'passwordEmploye'
     ];
 
     /**
@@ -48,7 +48,7 @@ class Employe extends Authenticatable implements JWTSubject
     protected $casts = [
         'dateEmbaucheEmploye' => 'datetime',
         'dateNaissanceEmploye' => 'date',
-        'codeEmploye' => 'hashed',
+        'passwordEmploye' => 'hashed',
     ];
 
     public function fonction()
