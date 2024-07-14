@@ -21,7 +21,6 @@ class EmployeResource extends JsonResource
             'telephone' => $this->telephoneEmploye,
             'email' => $this->emailEmploye,
             'adresse' => $this->adresseEmploye,
-            'code' => $this->codeEmploye,
             'nationality' => $this->nationalityEmploye,
             'dateNaissance' => $this->dateNaissanceEmploye,
             'sexe' => $this->sexeEmploye,
