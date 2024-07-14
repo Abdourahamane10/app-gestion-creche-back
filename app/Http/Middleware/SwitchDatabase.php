@@ -21,7 +21,9 @@ class SwitchDatabase
     public function handle(Request $request, Closure $next): Response
     {
         //On récupère la base de données à laquelle l'utilisateur essaie de se connecter
-        $database = $this->resolveDtaBaseName($request);
+        $database = $this->resolveDtaBaseName($request)['dataBase'];
+        $tableAuth = $this->resolveDtaBaseName($request)['tableAuth'];
+
         if (!$database) {
             return $this->errorResponse("Utilisateur inconnu!");
         }
@@ -38,6 +40,7 @@ class SwitchDatabase
             return $this->errorResponse("Echec de la connexion à la base de données!", 500);
         }
 
+        $request->merge(['tableAuth' => $tableAuth]);
         return $next($request);
     }
 
@@ -62,6 +65,12 @@ class SwitchDatabase
         if ($instance) {
             $database = $instance->nomInstance;
         }
-        return $database;
+        $tableAuthentification = null;
+        if (in_array(strtoupper(substr($codeService, 0, 1)), ['D', 'E'])) {
+            $tableAuthentification = "employe";
+        } else if (strtoupper(substr($codeService, 0, 1)) == 'P') {
+            $tableAuthentification = "parent";
+        }
+        return ['dataBase' => $database, 'tableAuth' => $tableAuthentification];
     }
 }
