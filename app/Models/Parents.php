@@ -21,7 +21,7 @@ class Parents extends Authenticatable implements JWTSubject
         'telephoneParent',
         'emailParent',
         'adresseParent',
-        'codeParent',
+        'passwordParent',
         'nationalityParent',
         'dateNaissanceParent',
         'professionParent',
@@ -35,7 +35,7 @@ class Parents extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
-        'codeParent'
+        'passwordParent'
     ];
 
     /**
@@ -45,7 +45,7 @@ class Parents extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'dateNaissanceParent' => 'dateTime',
-        'codeParent' => 'hashed'
+        'passwordParent' => 'hashed'
     ];
 
     /**
