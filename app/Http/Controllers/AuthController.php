@@ -38,7 +38,9 @@ class AuthController extends Controller
      */
     public function loginSociete()
     {
-        return $this->successResponse("", "Connexion à la base de données réussie!");
+        //Récupération de la table d'authentification
+        $tableAuth = request()->has('tableAuth') ? request('tableAuth') : null;
+        return $this->successResponse(['tableAuth' => $tableAuth], "Connexion à la base de données réussie!");
     }
 
     /**
