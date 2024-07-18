@@ -20,9 +20,12 @@ class SwitchDatabase
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!is_array($this->resolveDataBaseName($request))) {
+            return $this->errorResponse('champs codeSociete ou champs codeService manquant!');
+        }
         //On récupère la base de données à laquelle l'utilisateur essaie de se connecter
-        $database = $this->resolveDtaBaseName($request)['dataBase'];
-        $tableAuth = $this->resolveDtaBaseName($request)['tableAuth'];
+        $database = $this->resolveDataBaseName($request)['dataBase'];
+        $tableAuth = $this->resolveDataBaseName($request)['tableAuth'];
 
         if (!$database) {
             return $this->errorResponse("Utilisateur inconnu!");
@@ -40,7 +43,7 @@ class SwitchDatabase
             return $this->errorResponse("Echec de la connexion à la base de données!", 500);
         }
 
-        $request->merge(['tableAuth' => $tableAuth]);
+        $request->merge(['database' => $database, 'tableAuth' => $tableAuth]);
         return $next($request);
     }
 
@@ -50,7 +53,7 @@ class SwitchDatabase
      * @param Request $request
      * @return void
      */
-    public function resolveDtaBaseName(Request $request)
+    public function resolveDataBaseName(Request $request)
     {
         if (!$request->has('codeSociete') || !$request->has('codeService')) {
             return $this->errorResponse('champs codeSociete ou champs codeService manquant!');
