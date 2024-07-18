@@ -28,7 +28,7 @@ class AuthController extends Controller
      *         @OA\JsonContent(
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=true),
-     *             @OA\Property(property="message", type="string", example="Connexion à la base de données réussie!"),
+     *             @OA\Property(property="message", type="string", example="Demande de connexion approuvée!"),
      *             @OA\Property(property="data", type="string", example="")
      *         )
      *     )
@@ -38,9 +38,11 @@ class AuthController extends Controller
      */
     public function loginSociete()
     {
+        //Récupération de la base instance
+        $database = request()->has('database') ? request('database') : null;
         //Récupération de la table d'authentification
         $tableAuth = request()->has('tableAuth') ? request('tableAuth') : null;
-        return $this->successResponse(['tableAuth' => $tableAuth], "Connexion à la base de données réussie!");
+        return $this->successResponse(['database' => $database, 'tableAuth' => $tableAuth], "Demande de connexion approuvée!");
     }
 
     /**
