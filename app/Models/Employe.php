@@ -80,4 +80,24 @@ class Employe extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * Surcharge la méthode getAuthPassword() de Laravel pour la récupération de mot de passe hashé lors de l'authentification de l'utilisateur
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->passwordEmploye;
+    }
+
+    /**
+     * Surcharge la méthode getEmailForPasswordReset() pour la récupération de l'email de l'utilisateur pour envoyer le lien de réinitialisation du mot de passe suite à une demande de réinitialisation de mot de passe
+     *
+     * @return void
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->emailEmploye;
+    }
 }
