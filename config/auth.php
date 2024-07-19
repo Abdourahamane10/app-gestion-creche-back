@@ -13,9 +13,13 @@ return [
     |
     */
 
+    // 'defaults' => [
+    //     'guard' => 'web',
+    //     'passwords' => 'users',
+    // ],
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'employe',
+        'passwords' => 'employe',
     ],
 
     /*
@@ -36,9 +40,18 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+        'employe' => [
+            'driver' => 'jwt',
+            'provider' => 'employe',
+        ],
+
+        'parent' => [
+            'driver' => 'jwt',
+            'provider' => 'parent',
         ],
     ],
 
@@ -60,9 +73,18 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        // 'users' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User::class,
+        // ],
+        'employe' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Employe::class,
+        ],
+
+        'parent' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Parents::class,
         ],
 
         // 'users' => [
