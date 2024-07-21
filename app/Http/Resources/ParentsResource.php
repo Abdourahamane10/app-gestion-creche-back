@@ -19,7 +19,7 @@ class ParentsResource extends JsonResource
             'nom' => $this->nomParent,
             'prenom' => $this->prenomParent,
             'telephone' => $this->telephoneParent,
-            'email' => $this->emailParent,
+            'email' => $this->email,
             'adresse' => $this->adresseParent,
             'nationality' => $this->nationalityParent,
             'dateNaissance' => $this->dateNaissanceParent,
