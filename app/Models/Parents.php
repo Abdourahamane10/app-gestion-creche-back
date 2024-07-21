@@ -14,14 +14,16 @@ class Parents extends Authenticatable implements JWTSubject
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'parent';
+    protected $connection = 'mysql_instanceClient';
+    protected $primaryKey = 'idParent';
 
     protected $fillable = [
         'nomParent',
         'prenomParent',
         'telephoneParent',
-        'emailParent',
+        'email',
         'adresseParent',
-        'passwordParent',
+        'password',
         'nationalityParent',
         'dateNaissanceParent',
         'professionParent',
@@ -35,7 +37,7 @@ class Parents extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
-        'passwordParent'
+        'password'
     ];
 
     /**
@@ -45,7 +47,7 @@ class Parents extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'dateNaissanceParent' => 'dateTime',
-        'passwordParent' => 'hashed'
+        'password' => 'hashed'
     ];
 
     /**
