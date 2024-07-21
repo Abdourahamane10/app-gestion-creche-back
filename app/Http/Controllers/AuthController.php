@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\ApiResponseTrait;
 use Tymon\JWTAuth\Factory;
+use Illuminate\Http\Response;
+use App\Traits\ApiResponseTrait;
+use Illuminate\Support\Facades\DB;
 
 
 class AuthController extends Controller
@@ -19,7 +21,7 @@ class AuthController extends Controller
      *         @OA\JsonContent(
      *             required={"codeSociete", "codeService"},
      *             @OA\Property(property="codeSociete", type="string", description="Code de connexion de la société"),
-     *             @OA\Property(property="codeService", type="string", description="Code de connexion du service de     l'utiilisateur")
+     *             @OA\Property(property="codeService", type="string", description="Code de connexion du service de l'utilisateur")
      *         )
      *     ),
      *     @OA\Response(
@@ -52,13 +54,23 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
-
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        //La présence des champs 'database' et 'tableAuth' est déjà faite dans le middleware InitConnexion
+        if (!request()->has(['email', 'password'])) {
+            return $this->errorResponse("Champs email ou password manquant!");
         }
 
-        return $this->respondWithToken($token);
+        $credentials = request(['email', 'password']);
+        $database = request(['database']);
+        $tableAuth = request(['tableAuth']);
+
+        if (!$token = auth("employe")->attempt($credentials)) {
+            return $this->errorResponse('Utilisateur inconnu!', Response::HTTP_UNAUTHORIZED);
+            //return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->successResponse($this->respondWithToken($token), "Connexion réussi avec succès!");
+
+        //return $this->respondWithToken($token);
     }
 
     /**
@@ -93,11 +105,11 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         $ttl = config('jwt.ttl', 60);
-        return response()->json([
+        return [
             'access_token' => $token,
             'token_type' => 'bearer',
             //'expires_in' => auth()->factory()->getTTL() * 60
             'expires_in' => $ttl * 60
-        ]);
+        ];
     }
 }
