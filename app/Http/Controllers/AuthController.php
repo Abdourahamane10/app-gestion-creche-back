@@ -60,10 +60,10 @@ class AuthController extends Controller
         }
 
         $credentials = request(['email', 'password']);
-        $database = request(['database']);
-        $tableAuth = request(['tableAuth']);
+        $database = request('database');
+        $tableAuth = request('tableAuth');
 
-        if (!$token = auth("employe")->attempt($credentials)) {
+        if (!$token = auth($tableAuth)->attempt($credentials)) {
             return $this->errorResponse('Utilisateur inconnu!', Response::HTTP_UNAUTHORIZED);
             //return response()->json(['error' => 'Unauthorized'], 401);
         }
