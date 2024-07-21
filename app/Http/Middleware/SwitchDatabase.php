@@ -23,25 +23,15 @@ class SwitchDatabase
         if (!is_array($this->resolveDataBaseName($request))) {
             return $this->errorResponse('champs codeSociete ou champs codeService manquant!');
         }
+        //On récupère les infos de connexion (base de données et table d'authentification)
+        $infosConnexion = $this->resolveDataBaseName($request);
         //On récupère la base de données à laquelle l'utilisateur essaie de se connecter
-        $database = $this->resolveDataBaseName($request)['dataBase'];
-        $tableAuth = $this->resolveDataBaseName($request)['tableAuth'];
+        $database = $infosConnexion['dataBase'];
+        //On récupère la table d'authentification
+        $tableAuth = $infosConnexion['tableAuth'];
 
-        if (!$database) {
-            return $this->errorResponse("Utilisateur inconnu!");
-        }
-
-        try {
-            //On récupère la configuration actuelle pour la connexion à la base de données
-            $config = config('database.connections.mysql_instanceClient');
-            $config['database'] = $database;
-            // On met à jour la configuration dans le fichier de configuration de l'application
-            config(['database.connections.mysql_instanceClient' => $config]);
-            DB::purge('mysql_instanceClient'); //On vide la connexion en cache si nécessaire
-            DB::reconnect('mysql_instanceClient'); //On ferme l'ancienne connexion et on en ouvre une nouvelle connexion avec la nouvelle configuration
-        } catch (ConnectionException $e) {
-            return $this->errorResponse("Echec de la connexion à la base de données!", 500);
-        }
+        //Initialisation de la connexion à la base de données
+        $this->initialiserConnection($database);
 
         $request->merge(['database' => $database, 'tableAuth' => $tableAuth]);
         return $next($request);
@@ -75,5 +65,30 @@ class SwitchDatabase
             $tableAuthentification = "parent";
         }
         return ['dataBase' => $database, 'tableAuth' => $tableAuthentification];
+    }
+
+    /**
+     * Fonction qui initialise la connection à la base de données
+     *
+     * @param string $database
+     * @return void
+     */
+    public function initialiserConnection(string $database)
+    {
+        if (!$database) {
+            return $this->errorResponse("Utilisateur inconnu!");
+        }
+
+        try {
+            //On récupère la configuration actuelle pour la connexion à la base de données
+            $config = config('database.connections.mysql_instanceClient');
+            $config['database'] = $database;
+            // On met à jour la configuration dans le fichier de configuration de l'application
+            config(['database.connections.mysql_instanceClient' => $config]);
+            DB::purge('mysql_instanceClient'); //On vide la connexion en cache si nécessaire
+            $connection = DB::reconnect('mysql_instanceClient'); //On ferme l'ancienne connexion et on en ouvre une nouvelle connexion avec la nouvelle configuration
+        } catch (ConnectionException $e) {
+            return $this->errorResponse("Echec de la connexion à la base de données!", 500);
+        }
     }
 }
