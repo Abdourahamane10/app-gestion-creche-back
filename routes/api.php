@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/loginSociete', [AuthController::class, 'loginSociete'])->middleware('switchDB');
+Route::post('/login', [AuthController::class, 'login']);
