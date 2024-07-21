@@ -119,6 +119,18 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'employe' => [
+            'provider' => 'employe',
+            'table' => 'password_reset_tokens', // Assurez-vous que cette table existe ou changez-la en conséquence
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'parent' => [
+            'provider' => 'parent',
+            'table' => 'password_reset_tokens', // Assurez-vous que cette table existe ou changez-la en conséquence
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*
