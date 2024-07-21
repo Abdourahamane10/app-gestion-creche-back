@@ -44,6 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             //\App\Http\Middleware\SwitchDatabase::class,
+            \App\Http\Middleware\InitConnection::class,
         ],
     ];
 
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'switchDB' => \App\Http\Middleware\SwitchDatabase::class,
+        'initConnection' => \App\Http\Middleware\InitConnection::class,
     ];
 }
