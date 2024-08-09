@@ -31,7 +31,14 @@ class AuthController extends Controller
      *             type="object",
      *             @OA\Property(property="success", type="boolean", example=true),
      *             @OA\Property(property="message", type="string", example="Demande de connexion approuvée!"),
-     *             @OA\Property(property="data", type="string", example="")
+     *             @OA\Property(property="data", type="object",
+     *                 example={
+     *                     "database": "nom_de_la_base_de_donnees",
+     *                     "tableAuth": "nom_de_la_table_d'authentification"
+     *                 },
+     *                 @OA\Property(property="database", type="string", description="Nom de la base de données utilisée"),
+     *                 @OA\Property(property="tableAuth", type="string", description="Nom de la table d'authentification utilisée")
+     *            )
      *         )
      *     )
      * )
