@@ -20,11 +20,12 @@ class SwitchDatabase
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!is_array($this->resolveDataBaseName($request))) {
-            return $this->errorResponse('champs codeSociete ou champs codeService manquant!');
-        }
         //On récupère les infos de connexion (base de données et table d'authentification)
         $infosConnexion = $this->resolveDataBaseName($request);
+        if (isset($infosConnexion["error"])) {
+            return $this->errorResponse($infosConnexion["error"]);
+        }
+
         //On récupère la base de données à laquelle l'utilisateur essaie de se connecter
         $database = $infosConnexion['dataBase'];
         //On récupère la table d'authentification
@@ -46,7 +47,7 @@ class SwitchDatabase
     public function resolveDataBaseName(Request $request)
     {
         if (!$request->has('codeSociete') || !$request->has('codeService')) {
-            return $this->errorResponse('champs codeSociete ou champs codeService manquant!');
+            return ['error' => 'champs codeSociete ou champs codeService manquant!'];
         }
         $database = "";
         $identifiants = $request->all();
